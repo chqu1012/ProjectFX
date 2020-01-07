@@ -4,6 +4,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
@@ -13,10 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <VBox spacing="15.0" BorderPane.alignment="CENTER">
+      <VBox spacing="15.0" styleClass="navbar" BorderPane.alignment="CENTER">
          <children>
             <FontAwesomeIconView fill="WHITE" glyphName="ALIGN_JUSTIFY" size="24" styleClass="nav-icon" />
             <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="24" styleClass="nav-icon" />
@@ -71,6 +71,7 @@
                               </HBox>
                               <Separator prefWidth="200.0" />
                               <TextField />
+                              <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                            </children>
                            <padding>
                               <Insets left="5.0" right="5.0" />
