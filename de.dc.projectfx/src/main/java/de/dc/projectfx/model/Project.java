@@ -2,10 +2,12 @@ package de.dc.projectfx.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Project {
@@ -15,8 +17,14 @@ public class Project {
 	private Long id;
 	private String name;
 	private String key;
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	private ProjectType type;
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	private User projectLead;
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private ProjectCategory category;
 	private LocalDateTime createdOn;
 	
