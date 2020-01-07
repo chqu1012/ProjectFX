@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,13 +19,13 @@ public class Project {
 	private String name;
 	private String key;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade={CascadeType.MERGE,CascadeType.REFRESH})
 	private ProjectType type;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade={CascadeType.MERGE,CascadeType.REFRESH})
 	private User projectLead;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade={CascadeType.MERGE,CascadeType.REFRESH})
 	private ProjectCategory category;
 	private LocalDateTime createdOn;
 	
