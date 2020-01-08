@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.projectfx.controller.MainController">
    <left>
       <VBox spacing="15.0" styleClass="navbar" BorderPane.alignment="CENTER">
          <children>
@@ -102,6 +102,11 @@
                   </SplitPane>
                </center>
             </BorderPane>
+            <SplitPane fx:id="paneAgenda" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <items>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" SplitPane.resizableWithParent="false" />
+               </items>
+            </SplitPane>
          </children>
       </StackPane>
    </center>

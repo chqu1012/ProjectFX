@@ -25,6 +25,7 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	jcenter()
 	maven { url "https://mvnrepository.com/" }
 	maven { url "http://maven.bestsolution.at/efxclipse-releases/" }
 	maven { url "https://repo.spring.io/snapshot" }
@@ -47,5 +48,5 @@ dependencies {
     compile 'com.calendarfx:view:8.5.0'
 
 	runtime('com.h2database:h2')
-    runtime 'de.jensd:fontawesomefx-fontawesome:4.7.0-5'
+    runtime 'de.jensd:fontawesomefx-commons:8.15'
 }
