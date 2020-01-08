@@ -4,6 +4,7 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		jcenter()
 		maven { url "http://maven.bestsolution.at/efxclipse-releases/" }
 		maven { url "https://mvnrepository.com/" }
 		maven { url "https://repo.spring.io/snapshot" }
@@ -31,14 +32,20 @@ repositories {
 }
 
 dependencies {
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-validation')
 	compile("org.springframework.boot:spring-boot-starter-web")
-	runtime('com.h2database:h2')
     compile group: 'commons-io', name: 'commons-io', version: '+'
 	compile group: 'org.eclipse.emf', name: 'org.eclipse.emf.common', version: '+'
 	compile group: 'org.eclipse.emf', name: 'org.eclipse.emf.ecore', version: '+'
 	compile group: 'org.eclipse.emf', name: 'org.eclipse.emf.ecore.xmi', version: '+'
 	compile group: 'org.greenrobot', name: 'eventbus', version: '+'
-	compile group: 'de.jensd', name: 'fontawesomefx', version: '+'
+	compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'log4j', name: 'apache-log4j-extras', version: '1.2.17'
+    compile 'com.calendarfx:view:8.5.0'
+
+	runtime('com.h2database:h2')
+    runtime 'de.jensd:fontawesomefx-fontawesome:4.7.0-5'
 }
