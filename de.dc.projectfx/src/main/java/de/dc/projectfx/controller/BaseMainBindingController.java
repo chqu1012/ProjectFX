@@ -4,12 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import com.calendarfx.model.Calendar;
-import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarSource;
 import com.calendarfx.view.CalendarView;
 
 import de.dc.projectfx.controller.model.MainBinding;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.StringBinding;
 import javafx.scene.layout.StackPane;
 
 public abstract class BaseMainBindingController extends BaseMainController{
@@ -22,6 +25,9 @@ public abstract class BaseMainBindingController extends BaseMainController{
 		
 		textAppointmentStart.textProperty().bind(model.startProperty().asString());
 		textAppointmentEnd.textProperty().bind(model.endProperty().asString());
+		BooleanBinding canCalcDuration = textAppointmentStart.textProperty().isNotNull().and(textAppointmentEnd.textProperty().isNotNull());
+		StringBinding durationBinding = Bindings.when(canCalcDuration).then(model.getEnd().minusNanos(model.getStart().getNano()).toString()).otherwise("0");
+		labelAppointmentDuration.textProperty().bind(durationBinding);
 	}
 
 	private StackPane createView() {

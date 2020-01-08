@@ -132,21 +132,27 @@
                         <Separator prefWidth="200.0" />
                         <HBox>
                            <children>
-                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="42.0" text="Start" />
+                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="54.0" text="Start" />
                               <TextField fx:id="textAppointmentStart" prefHeight="25.0" prefWidth="111.0" />
                               <Button fx:id="buttonSetStart" mnemonicParsing="false" onAction="#onButtonAction" text="Set" />
                            </children>
                         </HBox>
                         <HBox>
                            <children>
-                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="42.0" text="End" />
+                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="End" />
                               <TextField fx:id="textAppointmentEnd" prefHeight="25.0" prefWidth="112.0" />
                               <Button fx:id="buttonSetEnd" mnemonicParsing="false" onAction="#onButtonAction" text="Set" />
                            </children>
                         </HBox>
                         <HBox>
                            <children>
-                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="42.0" text="Project" />
+                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="52.0" text="Duration" />
+                              <Label fx:id="labelAppointmentDuration" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="52.0" text="0" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="Project" />
                               <ComboBox fx:id="comboAppointmentProject" editable="true" prefHeight="25.0" prefWidth="135.0" />
                            </children>
                         </HBox>
