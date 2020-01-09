@@ -1,66 +1,48 @@
 package de.dc.projectfx.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Calendar.Style;
 import com.calendarfx.model.CalendarSource;
+import com.calendarfx.model.Entry;
+import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
 
 import de.dc.projectfx.controller.model.MainBinding;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.binding.StringBinding;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.StackPane;
 
 public abstract class BaseMainBindingController extends BaseMainController{
 
 	protected MainBinding model = new MainBinding();
+	protected CalendarView calendarView = new CalendarView();
+	protected CalendarSource generalCalendarSource = new CalendarSource("General");
 	
 	public void initialize() {
 		StackPane stackPane = createView();		
 		paneAgenda.getItems().add(stackPane);
 		
-		textAppointmentStart.textProperty().bind(model.startProperty().asString());
-		textAppointmentEnd.textProperty().bind(model.endProperty().asString());
-		BooleanBinding canCalcDuration = textAppointmentStart.textProperty().isNotNull().and(textAppointmentEnd.textProperty().isNotNull());
-		StringBinding durationBinding = Bindings.when(canCalcDuration).then(model.getEnd().minusNanos(model.getStart().getNano()).toString()).otherwise("0");
-		labelAppointmentDuration.textProperty().bind(durationBinding);
+		textAppointmentStart.textProperty().bindBidirectional(model.startProperty());
+		textAppointmentEnd.textProperty().bindBidirectional(model.endProperty());
+		
+		textAppointmentStart.textProperty().addListener(this::calcDuration);
+		textAppointmentEnd.textProperty().addListener(this::calcDuration);
+		
+		labelAppointmentDuration.textProperty().bind(model.durationProperty().asString());
+		
+		listViewAppointments.setItems(model.sortedDataTask);
 	}
 
+	private void calcDuration(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		model.calcDuration();
+	}
+	
 	private StackPane createView() {
-		CalendarView calendarView = new CalendarView();
-
-        Calendar katja = new Calendar("Katja");
-        Calendar dirk = new Calendar("Dirk");
-        Calendar philip = new Calendar("Philip");
-        Calendar jule = new Calendar("Jule");
-        Calendar armin = new Calendar("Armin");
-        Calendar birthdays = new Calendar("Birthdays");
-        Calendar holidays = new Calendar("Holidays");
-
-        katja.setShortName("K");
-        dirk.setShortName("D");
-        philip.setShortName("P");
-        jule.setShortName("J");
-        armin.setShortName("A");
-        birthdays.setShortName("B");
-        holidays.setShortName("H");
-
-        katja.setStyle(Style.STYLE1);
-        dirk.setStyle(Style.STYLE2);
-        philip.setStyle(Style.STYLE3);
-        jule.setStyle(Style.STYLE4);
-        armin.setStyle(Style.STYLE5);
-        birthdays.setStyle(Style.STYLE6);
-        holidays.setStyle(Style.STYLE7);
-
-        CalendarSource familyCalendarSource = new CalendarSource("Family");
-        familyCalendarSource.getCalendars().addAll(birthdays, holidays, katja, dirk, philip, jule, armin);
-
-        calendarView.getCalendarSources().setAll(familyCalendarSource);
+        calendarView.getCalendarSources().setAll(generalCalendarSource);
         calendarView.setRequestedTime(LocalTime.now());
 
         StackPane stackPane = new StackPane();
@@ -90,5 +72,19 @@ public abstract class BaseMainBindingController extends BaseMainController{
         updateTimeThread.setDaemon(true);
         updateTimeThread.start();
 		return stackPane;
+	}
+	
+	protected Entry<Object> createEvent(Calendar calendar, String name, LocalDateTime start, LocalDateTime end) {
+		Entry<Object> entry = new Entry<>(name, new Interval(start, end));
+		calendar.addEntry(entry);
+		return entry;
+	}
+	
+	protected Calendar createCalendar(String name) {
+        Calendar calendar = new Calendar(name);
+        calendar.setStyle(Style.STYLE1);
+
+        generalCalendarSource.getCalendars().add(calendar);
+        return calendar;
 	}
 }
