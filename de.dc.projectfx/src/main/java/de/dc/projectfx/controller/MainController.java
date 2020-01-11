@@ -69,6 +69,10 @@ public class MainController extends BaseMainBindingController {
 			model.dataTask.add(entity);
 		} else if (source == buttonCreateProject) {
 			currentCalendar = createCalendar(textProjectName.getText());
+		} else if (source == buttonNewAppointment) {
+			paneNewAppointmentForn.toFront();
+		} else if (source == buttonCancelAppointment) {
+			paneNewAppointmentForn.toBack();
 		}
 	}
 }

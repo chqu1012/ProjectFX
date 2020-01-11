@@ -10,9 +10,23 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public abstract class BaseMainController {
 
+	@FXML
+	protected StackPane stackPaneAppointment;
+	
+	@FXML
+	protected VBox paneNewAppointmentForn;
+	
+    @FXML
+    protected Button buttonCancelAppointment;
+
+    @FXML
+    protected Button buttonNewAppointment;
+	
 	@FXML
 	protected SplitPane paneAgenda;
 

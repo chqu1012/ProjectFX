@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.projectfx.controller.MainController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.projectfx.controller.MainController">
    <left>
       <VBox spacing="15.0" styleClass="navbar" BorderPane.alignment="CENTER">
          <children>
@@ -126,11 +126,12 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Label text=")">
+                              <Label maxWidth="1.7976931348623157E308" text=")" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
+                              <Button fx:id="buttonNewAppointment" mnemonicParsing="false" onAction="#onButtonAction" text="New" />
                            </children>
                         </HBox>
                         <Separator prefWidth="200.0" />
@@ -142,74 +143,83 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </VBox>
-                  <VBox spacing="5.0" SplitPane.resizableWithParent="false">
+                  <StackPane fx:id="stackPaneAppointment" prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <Label text="NEW PROJECT">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Separator prefWidth="200.0" />
-                        <HBox>
+                        <VBox fx:id="paneNewAppointmentForn" spacing="5.0" style="-fx-background-color: #1E2F3C;">
                            <children>
-                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="54.0" text="Name" />
-                              <TextField fx:id="textProjectName" prefHeight="25.0" prefWidth="223.0" />
+                              <Label text="NEW PROJECT">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Separator prefWidth="200.0" />
+                              <HBox>
+                                 <children>
+                                    <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="54.0" text="Name" />
+                                    <TextField fx:id="textProjectName" prefHeight="25.0" prefWidth="223.0" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="Descr." />
+                                    <TextArea fx:id="textProjectDescription" prefHeight="200.0" prefWidth="223.0" />
+                                 </children>
+                              </HBox>
+                              <Button fx:id="buttonCreateProject" mnemonicParsing="false" onAction="#onButtonAction" text="Create" />
+                              <Label text="NEW APPOINTMENT">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Separator prefWidth="200.0" />
+                              <HBox>
+                                 <children>
+                                    <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="54.0" text="Start" />
+                                    <TextField fx:id="textAppointmentStart" prefHeight="25.0" prefWidth="194.0" />
+                                    <Button fx:id="buttonSetStart" mnemonicParsing="false" onAction="#onButtonAction" text="Set" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="End" />
+                                    <TextField fx:id="textAppointmentEnd" prefHeight="25.0" prefWidth="193.0" />
+                                    <Button fx:id="buttonSetEnd" mnemonicParsing="false" onAction="#onButtonAction" text="Set" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="52.0" text="Duration" />
+                                    <Label fx:id="labelAppointmentDuration" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="194.0" text="0" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="Project" />
+                                    <ComboBox fx:id="comboAppointmentProject" editable="true" prefHeight="25.0" prefWidth="224.0" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="Descr." />
+                                    <TextArea fx:id="textAppointmentDescription" prefHeight="200.0" prefWidth="223.0" />
+                                 </children>
+                              </HBox>
+                              <HBox spacing="5.0">
+                                 <children>
+                                    <Button fx:id="buttonCancelAppointment" mnemonicParsing="false" onAction="#onButtonAction" text="Cancel" />
+                                    <Button fx:id="buttonCreateAppointment" mnemonicParsing="false" onAction="#onButtonAction" text="Create" />
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="Descr." />
-                              <TextArea fx:id="textProjectDescription" prefHeight="200.0" prefWidth="223.0" />
-                           </children>
-                        </HBox>
-                        <Button fx:id="buttonCreateProject" mnemonicParsing="false" onAction="#onButtonAction" text="Create" />
-                        <Label text="NEW APPOINTMENT">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Separator prefWidth="200.0" />
-                        <HBox>
-                           <children>
-                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="54.0" text="Start" />
-                              <TextField fx:id="textAppointmentStart" prefHeight="25.0" prefWidth="194.0" />
-                              <Button fx:id="buttonSetStart" mnemonicParsing="false" onAction="#onButtonAction" text="Set" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="End" />
-                              <TextField fx:id="textAppointmentEnd" prefHeight="25.0" prefWidth="193.0" />
-                              <Button fx:id="buttonSetEnd" mnemonicParsing="false" onAction="#onButtonAction" text="Set" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="52.0" text="Duration" />
-                              <Label fx:id="labelAppointmentDuration" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="194.0" text="0" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="Project" />
-                              <ComboBox fx:id="comboAppointmentProject" editable="true" prefHeight="25.0" prefWidth="224.0" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="Descr." />
-                              <TextArea fx:id="textAppointmentDescription" prefHeight="200.0" prefWidth="223.0" />
-                           </children>
-                        </HBox>
-                        <Button fx:id="buttonCreateAppointment" mnemonicParsing="false" onAction="#onButtonAction" text="Create" />
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
+                  </StackPane>
                </items>
             </SplitPane>
          </children>

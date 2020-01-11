@@ -24,7 +24,7 @@ public abstract class BaseMainBindingController extends BaseMainController{
 	
 	public void initialize() {
 		StackPane stackPane = createView();		
-		paneAgenda.getItems().add(stackPane);
+		stackPaneAppointment.getChildren().add(stackPane);
 		
 		textAppointmentStart.textProperty().bindBidirectional(model.startProperty());
 		textAppointmentEnd.textProperty().bindBidirectional(model.endProperty());
@@ -43,6 +43,7 @@ public abstract class BaseMainBindingController extends BaseMainController{
 	
 	private StackPane createView() {
         calendarView.getCalendarSources().setAll(generalCalendarSource);
+        calendarView.setStyle("-fx-background-color: #1E2F3C");
         calendarView.setRequestedTime(LocalTime.now());
 
         StackPane stackPane = new StackPane();
