@@ -14,6 +14,7 @@ import com.calendarfx.view.CalendarView;
 import de.dc.projectfx.controller.feature.AppointmentListCell;
 import de.dc.projectfx.controller.model.MainBinding;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.StackPane;
 
@@ -37,8 +38,12 @@ public abstract class BaseMainBindingController extends BaseMainController{
 		
 		listViewAppointments.setItems(model.sortedDataTask);
 		listViewAppointments.setCellFactory(e -> new AppointmentListCell());
+		
+		textAppointmentSearch.textProperty().addListener(this::onAppointmentSearchChanged);
 	}
 
+	protected abstract void onAppointmentSearchChanged(ObservableValue<? extends String> observable, String oldValue, String newValue);
+	
 	private void calcDuration(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 		model.calcDuration();
 	}

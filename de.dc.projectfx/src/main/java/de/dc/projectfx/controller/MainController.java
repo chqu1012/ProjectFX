@@ -38,9 +38,9 @@ public class MainController extends BaseMainBindingController {
 					Platform.runLater(()->{
 						List<Entry<?>> entries = currentCalendar.findEntries(newValue.getName());
 						if (!entries.isEmpty()) {
-								calendarView.clearSelection();
-								calendarView.setDate(newValue.getStart().toLocalDate());
-								calendarView.select(entries.get(0));
+							calendarView.clearSelection();
+							calendarView.setDate(newValue.getStart().toLocalDate());
+							calendarView.select(entries.get(0));
 						}
 					});
 				}
@@ -76,6 +76,14 @@ public class MainController extends BaseMainBindingController {
 			paneNewAppointmentForn.toFront();
 		} else if (source == buttonCancelAppointment) {
 			paneNewAppointmentForn.toBack();
+		}
+	}
+
+	@Override
+	protected void onAppointmentSearchChanged(ObservableValue<? extends String> observable, String oldValue,
+			String newValue) {
+		if (newValue!=null) {
+			model.filteredDataTask.setPredicate(e->e.getName().toLowerCase().contains(newValue.toLowerCase()));
 		}
 	}
 }
