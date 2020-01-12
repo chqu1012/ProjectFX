@@ -34,7 +34,7 @@ public abstract class BaseMainBindingController extends BaseMainController{
 		textAppointmentStart.textProperty().addListener(this::calcDuration);
 		textAppointmentEnd.textProperty().addListener(this::calcDuration);
 		
-		labelAppointmentDuration.textProperty().bind(model.durationProperty().asString());
+		labelAppointmentDuration.textProperty().bind(model.durationProperty());
 		
 		listViewAppointments.setItems(model.sortedDataTask);
 		listViewAppointments.setCellFactory(e -> new AppointmentListCell());
@@ -50,6 +50,9 @@ public abstract class BaseMainBindingController extends BaseMainController{
 		textProjectName.textProperty().bindBidirectional(model.projectNameProperty());
 		textProjectKey.textProperty().bindBidirectional(model.projectKeyProperty());
 		textProjectDescription.textProperty().bindBidirectional(model.projectDescriptionProperty());
+		
+		buttonCreateAppointment.disableProperty().bind(model.disableCreateAppointmentButtonProperty());
+		buttonCreateProject.disableProperty().bind(model.disableCreateProjectButtonProperty());
 	}
 
 	protected abstract void onAppointmentSearchChanged(ObservableValue<? extends String> observable, String oldValue, String newValue);

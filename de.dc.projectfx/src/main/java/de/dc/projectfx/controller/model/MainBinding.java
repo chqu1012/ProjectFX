@@ -8,8 +8,12 @@ import de.dc.projectfx.model.ProjectCategory;
 import de.dc.projectfx.model.ProjectType;
 import de.dc.projectfx.model.Task;
 import de.dc.projectfx.model.User;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -17,14 +21,17 @@ import javafx.collections.transformation.SortedList;
 
 public class MainBinding {
 
-	private ObjectProperty<String> start = new SimpleObjectProperty<>();
-	private ObjectProperty<String> end = new SimpleObjectProperty<>();
-	private ObjectProperty<String> duration = new SimpleObjectProperty<>();
-	private ObjectProperty<String> projectDescription = new SimpleObjectProperty<>();
-	private ObjectProperty<String> projectName = new SimpleObjectProperty<>();
-	private ObjectProperty<String> projectKey = new SimpleObjectProperty<>();
-	private ObjectProperty<String> appointmentDescription = new SimpleObjectProperty<>();
+	private StringProperty start = new SimpleStringProperty();
+	private StringProperty end = new SimpleStringProperty();
+	private StringProperty duration = new SimpleStringProperty();
+	private StringProperty projectDescription = new SimpleStringProperty();
+	private StringProperty projectName = new SimpleStringProperty();
+	private StringProperty projectKey = new SimpleStringProperty();
+	private StringProperty appointmentDescription = new SimpleStringProperty();
 	private ObjectProperty<ProjectCategory> category = new SimpleObjectProperty<>();
+
+	private BooleanProperty disableCreateProjectButton = new SimpleBooleanProperty();
+	private BooleanProperty disableCreateAppointmentButton = new SimpleBooleanProperty();
 
 	public ObservableList<Project> dataProject = FXCollections.observableArrayList();
 	public FilteredList<Project> filteredDataProject = new FilteredList<>(dataProject);
@@ -45,6 +52,10 @@ public class MainBinding {
 	public ObservableList<Task> dataTask = FXCollections.observableArrayList();
 	public FilteredList<Task> filteredDataTask = new FilteredList<>(dataTask);
 	public SortedList<Task> sortedDataTask = new SortedList<>(filteredDataTask);
+
+	public MainBinding() {
+		disableCreateProjectButton.bind(projectName.isEmpty().and(projectKey.isEmpty()));
+	}
 
 	public void calcDuration() {
 		try {
@@ -152,7 +163,7 @@ public class MainBinding {
 		this.sortedDataTask = sortedDataTask;
 	}
 
-	public final ObjectProperty<String> startProperty() {
+	public final StringProperty startProperty() {
 		return this.start;
 	}
 
@@ -164,7 +175,7 @@ public class MainBinding {
 		this.startProperty().set(start);
 	}
 
-	public final ObjectProperty<String> endProperty() {
+	public final StringProperty endProperty() {
 		return this.end;
 	}
 
@@ -176,7 +187,7 @@ public class MainBinding {
 		this.endProperty().set(end);
 	}
 
-	public final ObjectProperty<String> durationProperty() {
+	public final StringProperty durationProperty() {
 		return this.duration;
 	}
 
@@ -188,7 +199,7 @@ public class MainBinding {
 		this.durationProperty().set(duration);
 	}
 
-	public final ObjectProperty<String> projectDescriptionProperty() {
+	public final StringProperty projectDescriptionProperty() {
 		return this.projectDescription;
 	}
 
@@ -200,7 +211,7 @@ public class MainBinding {
 		this.projectDescriptionProperty().set(projectDescription);
 	}
 
-	public final ObjectProperty<String> appointmentDescriptionProperty() {
+	public final StringProperty appointmentDescriptionProperty() {
 		return this.appointmentDescription;
 	}
 
@@ -224,7 +235,7 @@ public class MainBinding {
 		this.categoryProperty().set(category);
 	}
 
-	public final ObjectProperty<String> projectNameProperty() {
+	public final StringProperty projectNameProperty() {
 		return this.projectName;
 	}
 
@@ -236,7 +247,7 @@ public class MainBinding {
 		this.projectNameProperty().set(projectName);
 	}
 
-	public final ObjectProperty<String> projectKeyProperty() {
+	public final StringProperty projectKeyProperty() {
 		return this.projectKey;
 	}
 
@@ -246,6 +257,30 @@ public class MainBinding {
 
 	public final void setProjectKey(final String projectKey) {
 		this.projectKeyProperty().set(projectKey);
+	}
+
+	public final BooleanProperty disableCreateProjectButtonProperty() {
+		return this.disableCreateProjectButton;
+	}
+
+	public final boolean isDisableCreateProjectButton() {
+		return this.disableCreateProjectButtonProperty().get();
+	}
+
+	public final void setDisableCreateProjectButton(final boolean disableCreateProjectButton) {
+		this.disableCreateProjectButtonProperty().set(disableCreateProjectButton);
+	}
+
+	public final BooleanProperty disableCreateAppointmentButtonProperty() {
+		return this.disableCreateAppointmentButton;
+	}
+
+	public final boolean isDisableCreateAppointmentButton() {
+		return this.disableCreateAppointmentButtonProperty().get();
+	}
+
+	public final void setDisableCreateAppointmentButton(final boolean disableCreateAppointmentButton) {
+		this.disableCreateAppointmentButtonProperty().set(disableCreateAppointmentButton);
 	}
 
 }
