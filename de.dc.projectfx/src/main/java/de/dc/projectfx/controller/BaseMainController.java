@@ -2,6 +2,7 @@ package de.dc.projectfx.controller;
 
 import de.dc.projectfx.model.Project;
 import de.dc.projectfx.model.Task;
+import de.dc.projectfx.model.User;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +19,9 @@ import javafx.scene.layout.VBox;
 
 public abstract class BaseMainController {
 
+	@FXML
+	protected ComboBox<User> comboProjectLead;
+	
 	@FXML
 	protected ListView<Project> listViewProject;
 	
@@ -46,7 +50,7 @@ public abstract class BaseMainController {
 	protected SplitPane paneAgenda;
 
 	@FXML
-	protected Label textProjectKey;
+	protected TextField textProjectKey;
 	
 	@FXML
 	protected Label labelAppointmentsCount;

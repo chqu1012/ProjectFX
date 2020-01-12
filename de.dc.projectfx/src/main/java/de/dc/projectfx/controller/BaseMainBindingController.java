@@ -46,6 +46,10 @@ public abstract class BaseMainBindingController extends BaseMainController{
 		
 		listViewProject.setItems(model.sortedDataProject);
 		listViewProject.setCellFactory(e-> new ProjectNameListCell());
+		
+		textProjectName.textProperty().bindBidirectional(model.projectNameProperty());
+		textProjectKey.textProperty().bindBidirectional(model.projectKeyProperty());
+		textProjectDescription.textProperty().bindBidirectional(model.projectDescriptionProperty());
 	}
 
 	protected abstract void onAppointmentSearchChanged(ObservableValue<? extends String> observable, String oldValue, String newValue);

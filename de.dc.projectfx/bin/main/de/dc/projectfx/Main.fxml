@@ -245,6 +245,18 @@
                               </HBox>
                               <HBox>
                                  <children>
+                                    <Label maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="54.0" text="Leader" />
+                                    <ComboBox fx:id="comboProjectLead" prefHeight="25.0" prefWidth="222.0" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="comboProjectCategory" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="54.0" text="Category" />
+                                    <ComboBox fx:id="comboProjectLead1" prefHeight="25.0" prefWidth="222.0" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
                                     <Label alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="53.0" text="Descr." />
                                     <TextArea fx:id="textProjectDescription" prefHeight="200.0" prefWidth="223.0" />
                                  </children>

@@ -7,6 +7,7 @@ import de.dc.projectfx.model.Project;
 import de.dc.projectfx.model.ProjectCategory;
 import de.dc.projectfx.model.ProjectType;
 import de.dc.projectfx.model.Task;
+import de.dc.projectfx.model.User;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -20,12 +21,18 @@ public class MainBinding {
 	private ObjectProperty<String> end = new SimpleObjectProperty<>();
 	private ObjectProperty<String> duration = new SimpleObjectProperty<>();
 	private ObjectProperty<String> projectDescription = new SimpleObjectProperty<>();
+	private ObjectProperty<String> projectName = new SimpleObjectProperty<>();
+	private ObjectProperty<String> projectKey = new SimpleObjectProperty<>();
 	private ObjectProperty<String> appointmentDescription = new SimpleObjectProperty<>();
 	private ObjectProperty<ProjectCategory> category = new SimpleObjectProperty<>();
 
 	public ObservableList<Project> dataProject = FXCollections.observableArrayList();
 	public FilteredList<Project> filteredDataProject = new FilteredList<>(dataProject);
 	public SortedList<Project> sortedDataProject = new SortedList<>(filteredDataProject);
+
+	public ObservableList<User> dataUser = FXCollections.observableArrayList();
+	public FilteredList<User> filteredDataUser = new FilteredList<>(dataUser);
+	public SortedList<User> sortedDataUser = new SortedList<>(filteredDataUser);
 
 	public ObservableList<ProjectCategory> dataProjectCategory = FXCollections.observableArrayList();
 	public FilteredList<ProjectCategory> filteredDataProjectCategory = new FilteredList<>(dataProjectCategory);
@@ -216,4 +223,29 @@ public class MainBinding {
 	public final void setCategory(final ProjectCategory category) {
 		this.categoryProperty().set(category);
 	}
+
+	public final ObjectProperty<String> projectNameProperty() {
+		return this.projectName;
+	}
+
+	public final String getProjectName() {
+		return this.projectNameProperty().get();
+	}
+
+	public final void setProjectName(final String projectName) {
+		this.projectNameProperty().set(projectName);
+	}
+
+	public final ObjectProperty<String> projectKeyProperty() {
+		return this.projectKey;
+	}
+
+	public final String getProjectKey() {
+		return this.projectKeyProperty().get();
+	}
+
+	public final void setProjectKey(final String projectKey) {
+		this.projectKeyProperty().set(projectKey);
+	}
+
 }

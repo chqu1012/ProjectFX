@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Entry;
 
+import de.dc.projectfx.model.Project;
 import de.dc.projectfx.model.Task;
 import de.dc.projectfx.repository.ProjectRepository;
 import de.dc.projectfx.repository.TaskRepository;
@@ -74,7 +75,17 @@ public class MainController extends BaseMainBindingController {
 
 			model.dataTask.add(entity);
 		} else if (source == buttonCreateProject) {
-			currentCalendar = createCalendar(textProjectName.getText());
+			String projectName = model.getProjectName();
+			Project project = new Project();
+			project.setName(projectName);
+			project.setKey(model.getProjectKey());
+			project.setCreatedOn(LocalDateTime.now());
+//			project.setProjectLead(projectLead);
+//			project.setType(type);
+//			project.setCategory(category);
+			projectRepository.save(project);
+			currentCalendar = createCalendar(projectName);
+			model.dataProject.add(0, project);
 		} else if (source == buttonNewAppointment) {
 			model.setStart(LocalDateTime.now().toString());
 			model.setEnd(LocalDateTime.now().toString());
