@@ -41,8 +41,11 @@ public abstract class BaseMainBindingController extends BaseMainController{
 		
 		textAppointmentSearch.textProperty().addListener(this::onAppointmentSearchChanged);
 		
-		comboAppointmentProject.setItems(model.dataProject);
+		comboAppointmentProject.setItems(model.sortedDataProject);
 		comboAppointmentProject.setCellFactory(e-> new ProjectNameListCell());
+		
+		listViewProject.setItems(model.sortedDataProject);
+		listViewProject.setCellFactory(e-> new ProjectNameListCell());
 	}
 
 	protected abstract void onAppointmentSearchChanged(ObservableValue<? extends String> observable, String oldValue, String newValue);

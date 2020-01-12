@@ -19,6 +19,9 @@ import javafx.scene.layout.VBox;
 public abstract class BaseMainController {
 
 	@FXML
+	protected ListView<Project> listViewProject;
+	
+	@FXML
 	protected FontAwesomeIconView labelNavAgenda;
 	
 	@FXML
@@ -42,6 +45,9 @@ public abstract class BaseMainController {
 	@FXML
 	protected SplitPane paneAgenda;
 
+	@FXML
+	protected Label textProjectKey;
+	
 	@FXML
 	protected Label labelAppointmentsCount;
 
