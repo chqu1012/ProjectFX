@@ -9,10 +9,9 @@ import org.springframework.stereotype.Controller;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Entry;
 
-import de.dc.projectfx.model.Project;
 import de.dc.projectfx.model.Task;
-import de.dc.projectfx.repository.ProjectRepository;
 import de.dc.projectfx.repository.TaskRepository;
+import de.dc.projectfx.service.IProjectService;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,7 +22,7 @@ import javafx.scene.input.MouseEvent;
 public class MainController extends BaseMainBindingController {
 
 	@Autowired TaskRepository taskRepository;
-	@Autowired ProjectRepository projectRepository;
+	@Autowired IProjectService projectService;
 
 	private Calendar currentCalendar;
 
@@ -31,7 +30,7 @@ public class MainController extends BaseMainBindingController {
 	public void initialize() {
 		super.initialize();
 		model.dataTask.addAll(taskRepository.findAll());
-		model.dataProject.addAll(projectRepository.findAll());
+		model.dataProject.addAll(projectService.findAll());
 		currentCalendar = createCalendar("General");
 		model.dataTask.forEach(a -> createEvent(currentCalendar, a.getName(), a.getStart(), a.getEnd()));
 
@@ -75,17 +74,8 @@ public class MainController extends BaseMainBindingController {
 
 			model.dataTask.add(entity);
 		} else if (source == buttonCreateProject) {
-			String projectName = model.getProjectName();
-			Project project = new Project();
-			project.setName(projectName);
-			project.setKey(model.getProjectKey());
-			project.setCreatedOn(LocalDateTime.now());
-//			project.setProjectLead(projectLead);
-//			project.setType(type);
-//			project.setCategory(category);
-			projectRepository.save(project);
-			currentCalendar = createCalendar(projectName);
-			model.dataProject.add(0, project);
+			currentCalendar = createCalendar(model.getProjectName());
+			projectService.create(model);
 		} else if (source == buttonNewAppointment) {
 			model.setStart(LocalDateTime.now().toString());
 			model.setEnd(LocalDateTime.now().toString());

@@ -67,6 +67,12 @@ public class MainBinding {
 		}
 	}
 
+	public void clearProjectForm() {
+		setProjectName("");
+		setProjectDescription("");
+		setProjectKey("");
+	}
+	
 	public ObservableList<Project> getDataProject() {
 		return dataProject;
 	}
