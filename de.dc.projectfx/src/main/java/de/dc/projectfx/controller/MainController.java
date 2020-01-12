@@ -10,8 +10,8 @@ import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Entry;
 
 import de.dc.projectfx.model.Task;
+import de.dc.projectfx.repository.ProjectRepository;
 import de.dc.projectfx.repository.TaskRepository;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,8 +21,8 @@ import javafx.scene.input.MouseEvent;
 @Controller
 public class MainController extends BaseMainBindingController {
 
-	@Autowired
-	TaskRepository taskRepository;
+	@Autowired TaskRepository taskRepository;
+	@Autowired ProjectRepository projectRepository;
 
 	private Calendar currentCalendar;
 
@@ -30,6 +30,7 @@ public class MainController extends BaseMainBindingController {
 	public void initialize() {
 		super.initialize();
 		model.dataTask.addAll(taskRepository.findAll());
+		model.dataProject.addAll(projectRepository.findAll());
 		currentCalendar = createCalendar("General");
 		model.dataTask.forEach(a -> createEvent(currentCalendar, a.getName(), a.getStart(), a.getEnd()));
 
@@ -75,6 +76,8 @@ public class MainController extends BaseMainBindingController {
 		} else if (source == buttonCreateProject) {
 			currentCalendar = createCalendar(textProjectName.getText());
 		} else if (source == buttonNewAppointment) {
+			model.setStart(LocalDateTime.now().toString());
+			model.setEnd(LocalDateTime.now().toString());
 			paneNewAppointmentForn.toFront();
 		} else if (source == buttonCancelAppointment) {
 			paneNewAppointmentForn.toBack();

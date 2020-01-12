@@ -12,9 +12,9 @@ import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
 
 import de.dc.projectfx.controller.feature.AppointmentListCell;
+import de.dc.projectfx.controller.feature.ProjectNameListCell;
 import de.dc.projectfx.controller.model.MainBinding;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.StackPane;
 
@@ -40,6 +40,9 @@ public abstract class BaseMainBindingController extends BaseMainController{
 		listViewAppointments.setCellFactory(e -> new AppointmentListCell());
 		
 		textAppointmentSearch.textProperty().addListener(this::onAppointmentSearchChanged);
+		
+		comboAppointmentProject.setItems(model.dataProject);
+		comboAppointmentProject.setCellFactory(e-> new ProjectNameListCell());
 	}
 
 	protected abstract void onAppointmentSearchChanged(ObservableValue<? extends String> observable, String oldValue, String newValue);

@@ -1,5 +1,6 @@
 package de.dc.projectfx.controller;
 
+import de.dc.projectfx.model.Project;
 import de.dc.projectfx.model.Task;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
@@ -75,7 +76,7 @@ public abstract class BaseMainController {
 	protected Label labelAppointmentDuration;
 
 	@FXML
-	protected ComboBox<?> comboAppointmentProject;
+	protected ComboBox<Project> comboAppointmentProject;
 
 	@FXML
 	protected TextArea textAppointmentDescription;
