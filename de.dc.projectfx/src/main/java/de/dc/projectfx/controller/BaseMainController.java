@@ -1,6 +1,7 @@
 package de.dc.projectfx.controller;
 
 import de.dc.projectfx.model.Task;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,11 +11,21 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public abstract class BaseMainController {
 
+	@FXML
+	protected FontAwesomeIconView labelNavAgenda;
+	
+	@FXML
+	protected FontAwesomeIconView labelNavProject;
+	
+	@FXML
+	protected SplitPane paneProject;
+	
 	@FXML
 	protected StackPane stackPaneAppointment;
 	
@@ -74,5 +85,8 @@ public abstract class BaseMainController {
 
 	@FXML
 	protected abstract void onButtonAction(ActionEvent event);
+
+	@FXML
+	protected abstract void onMouseClicked(MouseEvent event);
 
 }
