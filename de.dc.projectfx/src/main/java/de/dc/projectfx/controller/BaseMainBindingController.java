@@ -11,6 +11,7 @@ import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
 
+import de.dc.projectfx.controller.feature.AppointmentListCell;
 import de.dc.projectfx.controller.model.MainBinding;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -35,6 +36,7 @@ public abstract class BaseMainBindingController extends BaseMainController{
 		labelAppointmentDuration.textProperty().bind(model.durationProperty().asString());
 		
 		listViewAppointments.setItems(model.sortedDataTask);
+		listViewAppointments.setCellFactory(e -> new AppointmentListCell());
 	}
 
 	private void calcDuration(ObservableValue<? extends String> observable, String oldValue, String newValue) {

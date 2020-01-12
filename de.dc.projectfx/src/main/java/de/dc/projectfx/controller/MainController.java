@@ -11,6 +11,7 @@ import com.calendarfx.model.Entry;
 
 import de.dc.projectfx.model.Task;
 import de.dc.projectfx.repository.TaskRepository;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -34,12 +35,14 @@ public class MainController extends BaseMainBindingController {
 			public void changed(ObservableValue<? extends Task> observable, Task oldValue,
 					Task newValue) {
 				if (newValue!=null) {
-					List<Entry<?>> entries = currentCalendar.findEntries(newValue.getName());
-					if (!entries.isEmpty()) {
-						calendarView.clearSelection();
-						calendarView.setDate(newValue.getStart().toLocalDate());
-						calendarView.select(entries.get(0));
-					}
+					Platform.runLater(()->{
+						List<Entry<?>> entries = currentCalendar.findEntries(newValue.getName());
+						if (!entries.isEmpty()) {
+								calendarView.clearSelection();
+								calendarView.setDate(newValue.getStart().toLocalDate());
+								calendarView.select(entries.get(0));
+						}
+					});
 				}
 			}
 		});
