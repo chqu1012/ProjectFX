@@ -5,14 +5,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Entry;
 
-import de.dc.projectfx.ProjectFXApp;
 import de.dc.projectfx.model.Task;
 import de.dc.projectfx.repository.TaskRepository;
 import de.dc.projectfx.service.IProjectService;
@@ -25,13 +23,10 @@ import javafx.scene.input.MouseEvent;
 @Controller
 public class MainController extends BaseMainBindingController {
 
-	@Autowired
-	TaskRepository taskRepository;
-	@Autowired
-	IProjectService projectService;
+	@Autowired TaskRepository taskRepository;
+	@Autowired IProjectService projectService;
 
-	@Autowired
-	ConfigurableApplicationContext springContext;
+	@Autowired ConfigurableApplicationContext springContext;
 
 	private Calendar currentCalendar;
 	private Parent dashboard;
@@ -44,18 +39,6 @@ public class MainController extends BaseMainBindingController {
 		currentCalendar = createCalendar("General");
 		model.dataTask.forEach(a -> createEvent(currentCalendar, a.getName(), a.getStart(), a.getEnd()));
 
-		listViewAppointments.setOnMouseClicked(e -> {
-			Task selection = listViewAppointments.getSelectionModel().getSelectedItem();
-			if (selection != null) {
-				List<Entry<?>> entries = currentCalendar.findEntries(selection.getName());
-				if (!entries.isEmpty()) {
-					calendarView.clearSelection();
-					calendarView.setDate(selection.getStart().toLocalDate());
-					calendarView.select(entries.get(0));
-				}
-			}
-		});
-		
 		dashboard = load("/de/dc/projectfx/Dashboard.fxml");
 		stackPaneMain.getChildren().add(dashboard);
 	}
@@ -72,7 +55,7 @@ public class MainController extends BaseMainBindingController {
 		} else if (source == buttonCreateAppointment) {
 			LocalDateTime start = LocalDateTime.parse(model.getStart());
 			LocalDateTime end = LocalDateTime.parse(model.getEnd());
-			String name = comboAppointmentProject.getValue().toString();
+			String name = model.getAppointmentDescription();
 			createEvent(currentCalendar, name, start, end);
 			Task entity = new Task();
 			entity.setName(name);
@@ -81,7 +64,7 @@ public class MainController extends BaseMainBindingController {
 			entity.setCreatedOn(LocalDateTime.now());
 			taskRepository.save(entity);
 
-			model.dataTask.add(entity);
+			model.dataTask.add(0, entity);
 		} else if (source == buttonCreateProject) {
 			currentCalendar = createCalendar(model.getProjectName());
 			projectService.create(model);
@@ -111,6 +94,20 @@ public class MainController extends BaseMainBindingController {
 			paneProject.toFront();
 		} else if (source == labelNavHome) {
 			dashboard.toFront();
+		} else if (source == listViewAppointments) {
+			dispatchOnListViewAppointmentClicked();
+		}
+	}
+
+	private void dispatchOnListViewAppointmentClicked() {
+		Task selection = listViewAppointments.getSelectionModel().getSelectedItem();
+		if (selection != null) {
+			List<Entry<?>> entries = currentCalendar.findEntries(selection.getName());
+			if (!entries.isEmpty()) {
+				calendarView.clearSelection();
+				calendarView.setDate(selection.getStart().toLocalDate());
+				calendarView.select(entries.get(0));
+			}
 		}
 	}
 

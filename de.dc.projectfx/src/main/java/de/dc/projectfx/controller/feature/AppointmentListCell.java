@@ -16,6 +16,7 @@ public class AppointmentListCell extends ListCell<Task> {
 		super.updateItem(item, empty);
 		if (item==null || empty) {
 			setText(null);
+			setGraphic(null);
 		}else {
 			VBox parent = new VBox(1.0);
 			parent.getChildren().add(new Label("Name:\t\t"+item.getName()));

@@ -29,6 +29,7 @@ public abstract class BaseMainBindingController extends BaseMainController{
 		
 		textAppointmentStart.textProperty().bindBidirectional(model.startProperty());
 		textAppointmentEnd.textProperty().bindBidirectional(model.endProperty());
+		textAppointmentDescription.textProperty().bindBidirectional(model.appointmentDescriptionProperty());
 		
 		textAppointmentStart.textProperty().addListener(this::calcDuration);
 		textAppointmentEnd.textProperty().addListener(this::calcDuration);

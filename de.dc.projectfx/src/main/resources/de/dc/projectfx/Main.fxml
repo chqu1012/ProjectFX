@@ -204,7 +204,7 @@
                         </HBox>
                         <Separator prefWidth="200.0" />
                         <TextField fx:id="textAppointmentSearch" />
-                        <ListView fx:id="listViewAppointments" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="listViewAppointments" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onMouseClicked" VBox.vgrow="ALWAYS" />
                         <HBox />
                      </children>
                      <padding>
