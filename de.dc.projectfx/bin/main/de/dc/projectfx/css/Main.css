@@ -1,5 +1,4 @@
 .root{
-	-fx-base: #1E2F3C;
 }
 
 .main-label{
@@ -16,7 +15,7 @@
 }
 
 .nav-icon:hover {
-    -fx-fill: blue;
+    -fx-fill: #69747D;
     -glyph-size: 24px;
 }
 

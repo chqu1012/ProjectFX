@@ -1,6 +1,5 @@
 package de.dc.projectfx.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -15,7 +14,6 @@ import de.dc.projectfx.controller.converter.ProjectConverter;
 import de.dc.projectfx.controller.feature.AppointmentListCell;
 import de.dc.projectfx.controller.feature.ProjectNameListCell;
 import de.dc.projectfx.controller.model.MainBinding;
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.StackPane;
 
@@ -66,35 +64,10 @@ public abstract class BaseMainBindingController extends BaseMainController{
 	
 	private StackPane createView() {
         calendarView.getCalendarSources().setAll(generalCalendarSource);
-        calendarView.setStyle("-fx-background-color: #1E2F3C");
         calendarView.setRequestedTime(LocalTime.now());
-
+        calendarView.setStyle("-fx-background-color: white");
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(calendarView); // introPane);
-
-        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
-            @Override
-            public void run() {
-                while (true) {
-                    Platform.runLater(() -> {
-                        calendarView.setToday(LocalDate.now());
-                        calendarView.setTime(LocalTime.now());
-                    });
-
-                    try {
-                        // update every 10 seconds
-                        sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-        };
-
-        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
-        updateTimeThread.setDaemon(true);
-        updateTimeThread.start();
+        stackPane.getChildren().addAll(calendarView); 
 		return stackPane;
 	}
 	
@@ -107,7 +80,7 @@ public abstract class BaseMainBindingController extends BaseMainController{
 	protected Calendar createCalendar(String name) {
         Calendar calendar = new Calendar(name);
         calendar.setStyle(Style.STYLE1);
-
+        calendar.setReadOnly(true);
         generalCalendarSource.getCalendars().add(calendar);
         return calendar;
 	}

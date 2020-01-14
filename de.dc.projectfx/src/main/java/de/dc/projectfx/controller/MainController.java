@@ -1,30 +1,40 @@
 package de.dc.projectfx.controller;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Entry;
 
+import de.dc.projectfx.ProjectFXApp;
 import de.dc.projectfx.model.Task;
 import de.dc.projectfx.repository.TaskRepository;
 import de.dc.projectfx.service.IProjectService;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 
 @Controller
 public class MainController extends BaseMainBindingController {
 
-	@Autowired TaskRepository taskRepository;
-	@Autowired IProjectService projectService;
+	@Autowired
+	TaskRepository taskRepository;
+	@Autowired
+	IProjectService projectService;
+
+	@Autowired
+	ConfigurableApplicationContext springContext;
 
 	private Calendar currentCalendar;
+	private Parent dashboard;
 
 	@Override
 	public void initialize() {
@@ -34,21 +44,20 @@ public class MainController extends BaseMainBindingController {
 		currentCalendar = createCalendar("General");
 		model.dataTask.forEach(a -> createEvent(currentCalendar, a.getName(), a.getStart(), a.getEnd()));
 
-		listViewAppointments.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Task>() {
-			@Override
-			public void changed(ObservableValue<? extends Task> observable, Task oldValue, Task newValue) {
-				if (newValue != null) {
-					Platform.runLater(() -> {
-						List<Entry<?>> entries = currentCalendar.findEntries(newValue.getName());
-						if (!entries.isEmpty()) {
-							calendarView.clearSelection();
-							calendarView.setDate(newValue.getStart().toLocalDate());
-							calendarView.select(entries.get(0));
-						}
-					});
+		listViewAppointments.setOnMouseClicked(e -> {
+			Task selection = listViewAppointments.getSelectionModel().getSelectedItem();
+			if (selection != null) {
+				List<Entry<?>> entries = currentCalendar.findEntries(selection.getName());
+				if (!entries.isEmpty()) {
+					calendarView.clearSelection();
+					calendarView.setDate(selection.getStart().toLocalDate());
+					calendarView.select(entries.get(0));
 				}
 			}
 		});
+		
+		dashboard = load("/de/dc/projectfx/Dashboard.fxml");
+		stackPaneMain.getChildren().add(dashboard);
 	}
 
 	@Override
@@ -82,7 +91,7 @@ public class MainController extends BaseMainBindingController {
 			paneNewAppointmentForn.toFront();
 		} else if (source == buttonCancelAppointment) {
 			paneNewAppointmentForn.toBack();
-		} 
+		}
 	}
 
 	@Override
@@ -96,10 +105,23 @@ public class MainController extends BaseMainBindingController {
 	@Override
 	protected void onMouseClicked(MouseEvent event) {
 		Object source = event.getSource();
-		if (source  == labelNavAgenda) {
+		if (source == labelNavAgenda) {
 			paneAgenda.toFront();
 		} else if (source == labelNavProject) {
 			paneProject.toFront();
-		}		
+		} else if (source == labelNavHome) {
+			dashboard.toFront();
+		}
+	}
+
+	private Parent load(String fxml) {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
+		fxmlLoader.setControllerFactory(springContext::getBean);
+		try {
+			return fxmlLoader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

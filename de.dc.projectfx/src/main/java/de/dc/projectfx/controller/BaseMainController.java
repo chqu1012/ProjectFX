@@ -20,6 +20,9 @@ import javafx.scene.layout.VBox;
 public abstract class BaseMainController {
 
 	@FXML
+	protected StackPane stackPaneMain;
+	
+	@FXML
 	protected ComboBox<User> comboProjectLead;
 	
 	@FXML
@@ -30,6 +33,9 @@ public abstract class BaseMainController {
 	
 	@FXML
 	protected FontAwesomeIconView labelNavProject;
+
+	@FXML
+	protected FontAwesomeIconView labelNavHome;
 	
 	@FXML
 	protected SplitPane paneProject;
