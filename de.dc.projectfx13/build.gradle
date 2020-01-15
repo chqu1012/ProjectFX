@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id 'application'
+  	id 'org.openjfx.javafxplugin' version '0.0.8'
+  	id 'org.beryx.jlink' version '2.12.0'
+  	id 'org.springframework.boot'  version '2.2.2.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+
+repositories {
+    mavenLocal()
+    jcenter()
+	maven { url "https://mvnrepository.com/" }
+	maven { url "http://maven.bestsolution.at/efxclipse-releases/" }
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencies {
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+	
+	implementation "org.openjfx:javafx-base:13.0.1"
+    implementation 'org.openjfx:javafx-graphics:13.0.1'
+    implementation 'org.openjfx:javafx-controls:13.0.1'
+    implementation 'org.openjfx:javafx-fxml:13.0.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	
+	compile group: 'org.greenrobot', name: 'eventbus', version: '+'
+	compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'log4j', name: 'apache-log4j-extras', version: '1.2.17'
+    
+    compile 'com.calendarfx:view:+'
+	compile 'com.calendarfx:calendar:+'
+	
+	runtime('com.h2database:h2')
+}
+
+group = 'de.dc'
+version = '0.0.1-SNAPSHOT'
+description = 'projectfx'
+sourceCompatibility = '1.8'
+
+javafx {
+    version = "13"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+mainClassName = 'de.dc.projectfx.ProjectFXApp'
+
+jlink {
+    launcher {
+        name = 'exe_name'
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'de.dc.projectfx.ProjectFXApp'
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

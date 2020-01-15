@@ -1,0 +1,45 @@
+.root{
+	-fx-base: #1E2F3C;
+}
+
+.main-label{
+	-fx-font-size: 22pt;
+}
+
+.navbar{
+	-fx-background-color: #1E2F3C;
+}
+
+.nav-icon {
+    -fx-fill: white;
+    -glyph-size: 24px;
+}
+
+.nav-icon:hover {
+    -fx-fill: blue;
+    -glyph-size: 24px;
+}
+
+.nav-icon:pressed{
+    -fx-fill: white;
+    -glyph-size: 23px;
+}
+
+.stack-pane{
+	-fx-border-color: white;
+}
+
+.page-projects{
+	-fx-border-color: white;
+	-fx-background-color: white;
+}
+
+.page-projects SplitPane{
+	-fx-border-color: white;
+	-fx-background-color: white;
+}
+
+.page-title{
+	-fx-font-size: 14pt;
+	-fx-font-weight: bold;
+}
